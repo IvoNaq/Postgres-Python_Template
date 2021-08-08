@@ -1,0 +1,28 @@
+*Sources*
+For this exercise ive chosen the dataset from FAO crop statistics  provided by Kaggle
+https://www.kaggle.com/raghavramasamy/crop-statistics-fao-all-countries
+
+This dataset provides: 
+1. crop statistics: sown area by country/product, production by country/product, yield, from 1960 to 2019.
+2. Population statistics: population from 1960 to 2019 and forecasts
+3. Units flags and information flags
+
+
+###
+
+*How does this repo works?*
+
+1. docker-compose.yml orchestrates the two containers: a postgresql container that downloads the dataset and pushes it to a DB and a python container that waits for DB to be up and running and makes a few queries before it shuts itself down
+
+2. In /db there are a few entrypoint commands to 1. Make the DB schema 2. Download the data from kaggle 3. Push the data to the DB
+
+3. In /py there is one python script to make queries to the DB
+
+### 
+
+*Comments & Pendings*
+
+1. The DB schema is very simple and should be better designed
+2. The queries are very simple; there is much more data and insights to obtain
+3. The kaggle API user & key is in plain text
+

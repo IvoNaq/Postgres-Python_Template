@@ -1,0 +1,29 @@
+version: '3'
+services:
+  postgres:
+    image: postgres_python
+    build: 
+      dockerfile: Dockerfile
+      context: .
+    container_name: postgres
+    ports:
+      - 5432:5432
+    environment:
+     POSTGRES_PASSWORD: example
+     KAGGLE_USERNAME: ivonacucchio
+     KAGGLE_KEY: 5bc368b913134430360021a5e91111e8
+     
+    volumes:
+      - ./db:/docker-entrypoint-initdb.d/
+  python:
+    build:
+       dockerfile: Dockerfile2
+       context: .
+    depends_on:
+      - postgres
+    volumes:
+      - ./py:/py
+      
+    command: bash -c "while !</dev/tcp/postgres/5432; do sleep 1; done; python /py/scriptdb.py" 
+   
+
